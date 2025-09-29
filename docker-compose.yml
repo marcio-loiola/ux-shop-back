@@ -1,0 +1,64 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    entrypoint: .docker/entrypoint.sh
+    container_name: nestjs-typeorm-api
+    environment:
+      - NODE_ENV=development
+      - PORT=3333
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=docker
+      - DB_NAME=nestjs_typeorm_db
+      - DB_SSL=false
+    ports:
+      - "3333:3333"
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: nestjs-typeorm-pg
+    restart: always
+    tty: true
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=nestjs_typeorm_db
+
+  db-test:
+    image: postgres
+    container_name: nestjs-typeorm-pg-teste
+    restart: always
+    tty: true
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=nestjs_typeorm_db_test
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: nestjs-typeorm-pgadmin
+    tty: true
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres:
+  postgres-test:
