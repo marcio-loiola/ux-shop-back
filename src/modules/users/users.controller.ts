@@ -21,35 +21,35 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    const user = this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    const user = await this.usersService.create(createUserDto);
     return instanceToInstance(user);
   }
 
   @Get()
-  findAll() {
-    const users = this.usersService.findAll();
+  async findAll() {
+    const users = await this.usersService.findAll();
     return instanceToInstance(users);
   }
 
   @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    const user = this.usersService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    const user = await this.usersService.findOne(id);
 
     return instanceToInstance(user);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    const updatedUser = this.usersService.update(id, updateUserDto);
+    const updatedUser = await this.usersService.update(id, updateUserDto);
     return instanceToInstance(updatedUser);
   }
 
   @Delete(':id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.usersService.remove(id);
+  async remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.usersService.remove(id);
   }
 }
