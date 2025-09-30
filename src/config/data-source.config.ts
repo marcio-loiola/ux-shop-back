@@ -1,7 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { config } from 'dotenv';
+import * as dotenv from 'dotenv';
 
-config();
+dotenv.config();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -22,11 +22,7 @@ if (process.env.DB_SSL === 'true') {
   dataSourceOptions = {
     ...dataSourceOptions,
     ssl: true,
-    extra: {
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    },
+    extra: { ssl: { rejectUnauthorized: false } },
   };
 }
 

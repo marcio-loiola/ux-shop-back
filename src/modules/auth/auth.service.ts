@@ -17,18 +17,13 @@ export class AuthService {
   }
 
   async login(user) {
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id, email: user.email, role: user.role };
 
-    return {
-      user,
-      token: this.jwtService.sign(payload),
-    };
+    return { user, token: this.jwtService.sign(payload) };
   }
 
   async validateUser(email: string, password: string) {
-    const user = await this.usersRepository.findOne({
-      where: { email },
-    });
+    const user = await this.usersRepository.findOne({ where: { email } });
     if (!user) return null;
 
     const isPasswordValid = compareSync(password, user.passwordHash);

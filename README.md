@@ -1,73 +1,135 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+🛍️ API de Loja Online | Desafio UX Software
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Olá, equipe UX Software! 👋
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este projeto é a minha solução para o desafio técnico de Desenvolvedor Back-End. Foquei em construir uma API robusta, pragmática e alinhada com os requisitos do desafio, demonstrando minha capacidade de transformar ideias em realidade através de código bem estruturado e boas práticas de desenvolvimento.
 
-## Description
+Grande parte do trabalho, mesmo que não visível na interface, está detalhado no código, incluindo migrations, autenticação JWT e estrutura modular com NestJS.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+🚀 Jornada do Projeto & Decisões Técnicas
+O projeto foi desenvolvido com foco em escalabilidade e manutenibilidade. Optei por NestJS devido à sua arquitetura modular e suporte nativo ao TypeScript, facilitando a criação de uma API RESTful eficiente. Para o banco de dados, utilizei PostgreSQL com TypeORM para gerenciar as entidades e migrations, garantindo consistência e versionamento adequado.
 
-## Installation
+A autenticação foi implementada com JWT e Passport, permitindo controle de acesso seguro. O carrinho de compras foi persistido no banco, associado ao usuário autenticado. Para o cadastro de usuários, integrei um sistema de confirmação por e-mail (simulado via console para este desafio).
 
-```bash
-$ yarn install
+Diante dos requisitos não funcionais, priorizei o uso de Docker Compose para subir toda a aplicação, facilitando o desenvolvimento e deploy. As migrations foram criadas para gerenciar o schema do banco, e os commits seguem convenções semânticas para clareza.
+
+Todos esses detalhes estão registrados no repositório, com documentação clara e testes básicos.
+
+✅ O que foi entregue
+
+- **Produtos**: Listagem pública com paginação e filtros; CRUD restrito a administradores.
+- **Carrinho**: Adição e remoção de produtos, persistido no banco para usuários autenticados.
+- **Autenticação**: Login via JWT; apenas usuários logados manipulam o carrinho.
+- **Cadastro de Usuário**: Registro com envio de e-mail de confirmação (simulado no console).
+- **Migrations**: Gerenciamento completo do banco via TypeORM.
+- **Docker**: Configuração com docker-compose para subir app, banco e pgAdmin.
+- **Documentação**: Endpoints documentados com Swagger (integrado ao NestJS).
+
+🛠️ Tech Stack & Arquitetura
+
+- **Backend**: Node.js, NestJS, TypeScript
+- **Banco de Dados**: PostgreSQL
+- **ORM**: TypeORM
+- **Autenticação**: JWT, Passport
+- **DevOps**: Docker, Docker Compose
+- **Outros**: Class Validator, Bcrypt para senhas, UUID para IDs
+
+A arquitetura segue o padrão modular do NestJS, com separação clara entre módulos (auth, users, products, cart). As entidades estão bem definidas, e os DTOs garantem validação robusta.
+
+▶️ Como rodar o projeto
+A maneira mais fácil de validar o projeto é usando Docker Compose:
+
+1. **Clone o repositório**:
+
+   ```
+   git clone <repository-url>
+   cd nest-typeorm-api
+   ```
+
+2. **Inicie os serviços**:
+
+   ```
+   docker-compose up -d
+   ```
+
+   - Isso iniciará o app (porta 3333), banco PostgreSQL (porta 5432) e pgAdmin (porta 8000).
+
+3. **Execute as migrations** (se necessário):
+
+   ```
+   docker-compose exec app npm run migration:run
+   ```
+
+4. **Acesse a aplicação**:
+   - API: http://localhost:3333
+   - Documentação Swagger: http://localhost:3333/api
+   - pgAdmin: http://localhost:8000 (email: admin@admin.com, senha: admin)
+
+💡 Alternativa sem Docker (Node.js + PostgreSQL local)
+Caso o Docker apresente problemas:
+
+1. Instale PostgreSQL e crie um banco `nestjs_typeorm_db`.
+2. Configure as variáveis de ambiente (veja abaixo).
+3. Instale dependências:
+   ```
+   npm install
+   ```
+4. Inicie o servidor:
+   ```
+   npm run start:dev
+   ```
+5. Execute migrations:
+   ```
+   npm run migration:run
+   ```
+
+🌐 Variáveis de Ambiente Necessárias
+Crie um arquivo `.env` na raiz do projeto com:
+
+```
+NODE_ENV=development
+PORT=3333
+DB_HOST=localhost  # ou 'db' se usar Docker
+DB_PORT=5432
+DB_USER=postgres
+DB_PASS=docker
+DB_NAME=nestjs_typeorm_db
+DB_SSL=false
+JWT_SECRET=your-secret-key
 ```
 
-## Running the app
+📋 Endpoints Disponíveis
+A API está documentada no Swagger. Principais endpoints:
 
-```bash
-# development
-$ yarn run start
+- **Auth**:
+  - `POST /auth/login`: Login (retorna JWT)
+  - `POST /auth/register`: Cadastro de usuário (envia e-mail simulado)
 
-# watch mode
-$ yarn run start:dev
+- **Users**:
+  - `GET /users`: Listar usuários (admin)
+  - `POST /users`: Criar usuário (admin)
 
-# production mode
-$ yarn run start:prod
-```
+- **Products**:
+  - `GET /products`: Listar produtos (público, com paginação/filtros)
+  - `POST /products`: Criar produto (admin)
+  - `PUT /products/:id`: Atualizar produto (admin)
+  - `DELETE /products/:id`: Remover produto (admin)
 
-## Test
+- **Cart**:
+  - `GET /cart`: Ver carrinho (autenticado)
+  - `POST /cart/add`: Adicionar produto ao carrinho (autenticado)
+  - `DELETE /cart/remove/:productId`: Remover produto do carrinho (autenticado)
 
-```bash
-# unit tests
-$ yarn run test
+Para testar, use ferramentas como Postman ou Insomnia. Inclua o token JWT no header `Authorization: Bearer <token>` para endpoints protegidos.
 
-# e2e tests
-$ yarn run test:e2e
+⚠️ Observação importante
 
-# test coverage
-$ yarn run test:cov
-```
+- O envio de e-mail é simulado no console (ex: "E-mail enviado para user@example.com").
+- Para deploy, utilize plataformas como Heroku, Railway ou AWS. O docker-compose facilita a transição.
 
-## Support
+⏰ Nota Final sobre o Prazo
+Enfrentei desafios na configuração do ambiente Docker e na implementação das funcionalidades, mas foquei em entregar uma solução funcional e bem documentada. Acredito que este projeto evidencia minha paixão por desenvolvimento back-end, atenção aos detalhes e compromisso em entregar APIs seguras e eficientes.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Agradeço pela oportunidade e confiança! Espero que este projeto demonstre minha habilidade em criar soluções robustas com as tecnologias sugeridas. 🚀✨
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Bora codar! 🔥🚀
